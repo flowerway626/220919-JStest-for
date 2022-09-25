@@ -1,4 +1,4 @@
-# 220919-JS
+# 220919-JS for
 泰山職訓前端班JavaScript課堂練習 - 陣列<br>
 題目來源 https://rogeraabbccdd.github.io/F2E-book/views/ch6.html#for-in
 
