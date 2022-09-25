@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>air temperature</title>
+</head>
+
+<body>
+    <script>
+        const air = [
+            [18.2, 17.3, 15.0, 13.4],
+            [23.8, 25.1, 20.6, 17.8],
+            [20.6, 21.5, 18.4, 15.7]
+        ]
+
+        //印成表格
+        document.write('<table border="1">')
+        for (const i in air) {
+            document.write('<tr>')
+            for (const j in air[i]) {
+                document.write(`<td>${air[i][j]}</td>`)
+            } document.write('</tr>')
+        } document.write('</table>')
+
+        document.write('<br>')
+
+        // 時段
+        for (let i = 0; i < 3; i++) {
+            let temp = 0 // 每算完一個時段的，temp就重設 繼續算其他時段
+            for (let j = 0; j < 4; j++) {
+                temp += air[i][j]
+            }
+            temp /= 4 // 累加完該時段的溫度後，除以天數求平均
+            document.write(`時段 ${i + 1} 的平均溫度為 ${temp} 度 <br>`)
+        }
+
+        document.write('<br>')
+
+        //每日
+        for (let j = 0; j < 4; j++) {
+            let temp = 0 // 每算完一天的，temp就重設以方便繼續算其他天
+            for (let i = 0; i < 3; i++) {
+                temp += air[i][j]
+            }
+            temp /= 3 // 累加完該天的溫度後。除以時段數求平均
+            document.write(`星期 ${j + 1} 平均溫度為 ${temp} 度 <br>`)
+        }
+
+        // 最高最低
+        // 預設最高和最低的溫度為air[0][0]
+        let max = { time: 0, day: 0 }
+        let min = { time: 0, day: 0 }
+
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 4; j++) {
+                if (air[i][j] > air[max.time][max.day]) {
+                    // 當air[i][j]比預設的 max 還大時，取代原有的 max 直到迴圈結束
+                    max.time = i
+                    max.day = j
+                }
+                if (air[i][j] < air[min.time][min.day]) {
+                    // 當air[i][j]比預設的 min 還小時，取代原有的 min 直到迴圈結束
+                    min.time = i
+                    min.day = j
+                }
+            }
+        }
+        document.write('<br>')
+        document.write(`溫度最高的時段為 星期 ${max.day + 1} 的時段 ${max.time + 1} - ${air[max.time][max.day]}度`)
+        document.write('<br>')
+        document.write(`溫度最低的時段為 星期 ${min.day + 1} 的時段 ${min.time + 1} - ${air[min.time][min.day]}度`)
+
+    </script>
+</body>
+
+</html>
