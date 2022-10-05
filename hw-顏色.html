@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>color</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    #box {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #000;
+    }
+
+    .div {
+      width: 400px;
+      display: inline-block;
+    }
+
+    p {
+      width: 50px;
+      margin: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box" style="background: rgb(66, 128, 125);"></div>
+  <input type="range" id="range1" min="0" max="255" value="">
+  <p id="rgb1">0</p>
+  <input type="button" value="隨機" id="btn1"><br>
+
+  <input type="range" id="range2" min="0" max="255" value="">
+  <p id="rgb2">0</p>
+  <input type="button" value="隨機" id="btn2"><br>
+
+  <input type="range" id="range3" min="0" max="255" value="">
+  <p id="rgb3">0</p>
+  <input type="button" value="隨機" id="btn3">
+  <script>
+    const range1 = document.getElementById('range1')
+    const range2 = document.getElementById('range2')
+    const range3 = document.getElementById('range3')
+    const btn1 = document.getElementById('btn1')
+    const btn2 = document.getElementById('btn2')
+    const btn3 = document.getElementById('btn3')
+    const rgb1 = document.getElementById('rgb1')
+    const rgb2 = document.getElementById('rgb2')
+    const rgb3 = document.getElementById('rgb3')
+
+    btn1.onclick = () => {
+      const color = Math.round(Math.random() * 255)
+      rgb1.innerText = parseInt(color)
+      range1.value = color
+    }
+
+    btn2.onclick = () => {
+      const color = Math.round(Math.random() * 255)
+      rgb2.innerText = parseInt(color)
+      range2.value = color
+    }
+
+    btn3.onclick = () => {
+      const color = Math.round(Math.random() * 255)
+      rgb3.innerText = parseInt(color)
+      range3.value = color
+
+    }
+    box.style.background = `rgb(${range3.value}.${range3.value},${range3.value})`
+
+  </script>
+</body>
+
+</html>
