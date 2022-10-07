@@ -32,7 +32,7 @@
 </head>
 
 <body>
-  <div id="box" style="background: rgb(66, 128, 125);"></div>
+  <div id="box"></div>
   <input type="range" id="range1" min="0" max="255" value="">
   <p id="rgb1">0</p>
   <input type="button" value="隨機" id="btn1"><br>
@@ -44,6 +44,7 @@
   <input type="range" id="range3" min="0" max="255" value="">
   <p id="rgb3">0</p>
   <input type="button" value="隨機" id="btn3">
+
   <script>
     const range1 = document.getElementById('range1')
     const range2 = document.getElementById('range2')
@@ -55,26 +56,41 @@
     const rgb2 = document.getElementById('rgb2')
     const rgb3 = document.getElementById('rgb3')
 
+    let color = [0, 0, 0]
+
+    document.oninput = event => {
+      rgb1.innerText = range1.value
+      color[0] = range1.value
+      rgb2.innerText = range2.value
+      color[1] = range2.value
+      rgb3.innerText = range3.value
+      color[2] = range3.value
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+      console.log(color)
+    }
+
     btn1.onclick = () => {
-      const color = Math.round(Math.random() * 255)
-      rgb1.innerText = parseInt(color)
-      range1.value = color
+      color[0] = Math.round(Math.random() * 255)
+      range1.value = color[0]
+      rgb1.innerText = color[0]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+      console.log(color)
     }
 
     btn2.onclick = () => {
-      const color = Math.round(Math.random() * 255)
-      rgb2.innerText = parseInt(color)
-      range2.value = color
+      color[1] = Math.round(Math.random() * 255)
+      range2.value = color[1]
+      rgb2.innerText = color[1]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+      console.log(color)
     }
-
     btn3.onclick = () => {
-      const color = Math.round(Math.random() * 255)
-      rgb3.innerText = parseInt(color)
-      range3.value = color
-
+      color[2] = Math.round(Math.random() * 255)
+      range3.value = color[2]
+      rgb3.innerText = color[2]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+      console.log(color)
     }
-    box.style.background = `rgb(${range3.value}.${range3.value},${range3.value})`
-
   </script>
 </body>
 
