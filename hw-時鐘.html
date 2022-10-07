@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "華康雅藝體W6外字集";
+    }
+
+    #clock {
+      width: 300px;
+      height: 300px;
+      margin: auto;
+      position: relative;
+      top: calc(50vh - 150px);
+      border-radius: 50%;
+      background: #7CA5A6;
+    }
+
+    /* #A2F2ED #7CA5A6 #FFD1B5 #F5BA95 #A87556*/
+    /* 漸層 */
+
+    #hour {
+      width: 20%;
+      height: 10px;
+      background: #A87556;
+      top: calc(50% - 5px);
+      left: calc(50% - 5px);
+      border-radius: 5px;
+      position: absolute;
+      transform-origin: left center;
+    }
+
+    #minute {
+      width: 40%;
+      height: 10px;
+      background: #FFD1B5;
+      top: calc(50% - 5px);
+      left: calc(50% - 5px);
+      border-radius: 5px;
+      position: absolute;
+      transform-origin: left center;
+    }
+
+    #second {
+      width: 50%;
+      height: 6px;
+      background: #A2F2ED;
+      top: calc(50% - 3px);
+      left: calc(50% - 3px);
+      border-radius: 5px;
+      position: absolute;
+      transform-origin: left center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="clock">
+    <div id="hour"></div>
+    <div id="minute"></div>
+    <div id="second"></div>
+    <p id="today"></p>
+    <p id="time"></p>
+    <p id="day"></p>
+  </div>
+
+  <script>
+    const date = new Date()
+    const hour = document.getElementById('hour')
+    const minute = document.getElementById('minute')
+    const second = document.getElementById('second')
+    const today = document.getElementById('today')
+    const time = document.getElementById('time')
+    const day = document.getElementById('day')
+
+    setInterval(() => {
+      hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
+      minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
+      second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
+    }, 1000)
+
+    today.innerText = date.toLocaleDateString()
+    time.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+    console.log(String(date.getDay()))
+  </script>
+</body>
+
+</html>

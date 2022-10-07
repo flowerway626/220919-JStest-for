@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+    }
+
+    #box {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #000;
+    }
+
+    .div {
+      width: 400px;
+      display: inline-block;
+    }
+
+    p {
+      width: 50px;
+      margin: 8px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+  <input type="range" id="range" min="0" max="255" value="">
+  <p id="rgb">0</p>
+  <input type="button" value="隨機" id="btn"><br>
+
+  <input type="range" id="range2" min="0" max="255" value="">
+  <p id="rgb">0</p>
+  <input type="button" value="隨機" id="btn"><br>
+
+  <input type="range" id="range" min="0" max="255" value="">
+  <p id="rgb">0</p>
+  <input type="button" value="隨機" id="btn">
+
+  <script>
+    const ranges = document.querySelectorAll('range')
+    const btns = document.querySelectorAll('btn')
+    const rgbs = document.querySelectorAll('rgb')
+
+    let color = [0, 0, 0]
+
+    const rangeText = () => {
+      rgb1.innerText = range1.value
+
+    }
+
+    document.oninput = event => {
+      for (const range of ranges) {
+        if (oninput) {
+
+        }
+      }
+      rgb[0].innerText = range[0].value
+      color[0] = range1.value
+      rgb[1].innerText = range[1].value
+      color[1] = range[1].value
+      rgb3.innerText = range3.value
+      color[2] = range[2].value
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+    }
+
+    btn1.onclick = () => {
+      color[0] = Math.round(Math.random() * 255)
+      range1.value = color[0]
+      rgb1.innerText = color[0]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+    }
+
+    btn2.onclick = () => {
+      color[1] = Math.round(Math.random() * 255)
+      range2.value = color[1]
+      rgb2.innerText = color[1]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+    }
+    btn3.onclick = () => {
+      color[2] = Math.round(Math.random() * 255)
+      range3.value = color[2]
+      rgb3.innerText = color[2]
+      box.style.backgroundColor = `rgb(${color.join(',')})`
+    }
+
+  </script>
+</body>
+
+</html>
