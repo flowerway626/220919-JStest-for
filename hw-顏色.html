@@ -34,15 +34,15 @@
 <body>
   <div id="box"></div>
   <input type="range" id="range1" min="0" max="255" value="">
-  <p id="rgb1">0</p>
+  <p id="rgb1"></p>
   <input type="button" value="隨機" id="btn1"><br>
 
   <input type="range" id="range2" min="0" max="255" value="">
-  <p id="rgb2">0</p>
+  <p id="rgb2"></p>
   <input type="button" value="隨機" id="btn2"><br>
 
   <input type="range" id="range3" min="0" max="255" value="">
-  <p id="rgb3">0</p>
+  <p id="rgb3"></p>
   <input type="button" value="隨機" id="btn3">
 
   <script>
@@ -66,7 +66,6 @@
       rgb3.innerText = range3.value
       color[2] = range3.value
       box.style.backgroundColor = `rgb(${color.join(',')})`
-      console.log(color)
     }
 
     btn1.onclick = () => {
@@ -74,7 +73,6 @@
       range1.value = color[0]
       rgb1.innerText = color[0]
       box.style.backgroundColor = `rgb(${color.join(',')})`
-      console.log(color)
     }
 
     btn2.onclick = () => {
@@ -82,14 +80,12 @@
       range2.value = color[1]
       rgb2.innerText = color[1]
       box.style.backgroundColor = `rgb(${color.join(',')})`
-      console.log(color)
     }
     btn3.onclick = () => {
       color[2] = Math.round(Math.random() * 255)
       range3.value = color[2]
       rgb3.innerText = color[2]
       box.style.backgroundColor = `rgb(${color.join(',')})`
-      console.log(color)
     }
   </script>
 </body>
