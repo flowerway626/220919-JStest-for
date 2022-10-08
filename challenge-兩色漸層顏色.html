@@ -22,21 +22,25 @@
     #all {
       width: 560px;
       margin: auto;
-
     }
 
     .div {
       width: 280px;
       text-align: center;
       margin: 0;
-      display: inline-block;
       float: left;
+      padding: 10px 0;
     }
 
     p {
       width: 50px;
       margin: 8px;
       display: inline-block;
+    }
+
+    input[type="text"] {
+      width: 100px;
+      margin: 0 10px;
     }
   </style>
 </head>
@@ -45,40 +49,53 @@
   <div id="bg"></div>
   <div id="all">
     <div class="div">
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機"><br>
 
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機"><br>
 
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機">
     </div>
 
     <div class="div">
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機"><br>
 
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機"><br>
 
-      <input type="range" min="0" max="255" value="">
-      <p>128</p>
+      <input type="range" min="0" max="255" value="0">
+      <p>0</p>
       <input type="button" value="隨機">
     </div>
+    <div class="div">
+      <button id="random" value="">隨機角度</button>
+      <input type="text" class="deg">
+    </div>
   </div>
+
   <script>
     const ranges = document.querySelectorAll('input[type=range]')
     const btns = document.querySelectorAll('input[type=button]')
     const rgbs = document.getElementsByTagName('p')
+    const deg = document.getElementsByClassName('deg')
+    const random = document.getElementById('random')
 
     let color1 = [0, 0, 0]
     let color2 = [0, 0, 0]
+    let angle = 45
+
+    random.addEventListener('click', (e) => {
+      angle = Math.round(Math.random() * 360)
+      console.log(angle)
+    })
 
     for (let i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', (e) => {
@@ -93,7 +110,7 @@
           rgbs[i].innerText = color2[i - 3]
           console.log('2   ' + color2)
         }
-        bg.style.background = `linear-gradient(45deg,rgb(${color1.join(',')}),rgb(${color2.join(',')}))`
+        bg.style.background = `linear-gradient(${angle}deg,rgb(${color1.join(',')}),rgb(${color2.join(',')}))`
       })
     }
 
@@ -102,16 +119,14 @@
         if (i < 3) {
           rgbs[i].innerText = ranges[i].value
           color1[i] = ranges[i].value
-          bg.style.backgroundColor = `rgb(${color1.join(',')})`
-          console.log('1   ' + color1)
         } else {
-          rgbs[i - 3].innerText = ranges[i].value
-          color2[i - 3] = ranges[i - 3].value
-          bg.style.backgroundColor = `rgb(${color2.join(',')})`
-          console.log('2   ' + color2)
+          rgbs[i].innerText = ranges[i].value
+          color2[i - 3] = ranges[i].value
         }
       }
-
+      console.log('1   ' + color1)
+      console.log('2   ' + color2)
+      bg.style.background = `linear-gradient(${angle}deg,rgb(${color1.join(',')}),rgb(${color2.join(',')}))`
     }
   </script>
 </body>
