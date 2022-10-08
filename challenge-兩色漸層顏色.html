@@ -40,7 +40,6 @@
 
     input[type="text"] {
       width: 100px;
-      margin: 0 10px;
     }
   </style>
 </head>
@@ -75,46 +74,43 @@
       <p>0</p>
       <input type="button" value="隨機">
     </div>
-    <div class="div">
-      <button id="random" value="">隨機角度</button>
-      <input type="text" class="deg">
-    </div>
+    <button id="random" value="">隨機角度</button>
   </div>
 
   <script>
     const ranges = document.querySelectorAll('input[type=range]')
     const btns = document.querySelectorAll('input[type=button]')
     const rgbs = document.getElementsByTagName('p')
-    const deg = document.getElementsByClassName('deg')
+    const deg = document.getElementById('deg')
     const random = document.getElementById('random')
 
-    let color1 = [0, 0, 0]
-    let color2 = [0, 0, 0]
+    let color1 = [0, 0, 0] // 左邊顏色
+    let color2 = [0, 0, 0] // 右邊顏色
     let angle = 45
 
-    random.addEventListener('click', (e) => {
+    random.addEventListener('click', () => {
       angle = Math.round(Math.random() * 360)
       console.log(angle)
     })
 
+    // 按下 rgb隨機鈕 時
     for (let i = 0; i < btns.length; i++) {
-      btns[i].addEventListener('click', (e) => {
+      btns[i].addEventListener('click', () => {
         if (i < 3) {
           color1[i] = Math.round(Math.random() * 255)
           ranges[i].value = color1[i]
           rgbs[i].innerText = color1[i]
-          console.log('1   ' + color1)
         } else {
           color2[i - 3] = Math.round(Math.random() * 255)
           ranges[i].value = color2[i - 3]
           rgbs[i].innerText = color2[i - 3]
-          console.log('2   ' + color2)
         }
         bg.style.background = `linear-gradient(${angle}deg,rgb(${color1.join(',')}),rgb(${color2.join(',')}))`
       })
     }
 
-    document.oninput = (e) => {
+    // 拉動 rgb滑桿 時
+    document.oninput = () => {
       for (let i = 0; i < ranges.length; i++) {
         if (i < 3) {
           rgbs[i].innerText = ranges[i].value
@@ -124,8 +120,6 @@
           color2[i - 3] = ranges[i].value
         }
       }
-      console.log('1   ' + color1)
-      console.log('2   ' + color2)
       bg.style.background = `linear-gradient(${angle}deg,rgb(${color1.join(',')}),rgb(${color2.join(',')}))`
     }
   </script>
