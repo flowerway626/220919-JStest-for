@@ -33,63 +33,43 @@
 
 <body>
   <div id="box"></div>
-  <input type="range" id="range" min="0" max="255" value="">
-  <p id="rgb">0</p>
-  <input type="button" value="隨機" id="btn"><br>
+  <input type="range" min="0" max="255" value="">
+  <p>0</p>
+  <input type="button" value="隨機"><br>
 
-  <input type="range" id="range2" min="0" max="255" value="">
-  <p id="rgb">0</p>
-  <input type="button" value="隨機" id="btn"><br>
+  <input type="range" min="0" max="255" value="">
+  <p>0</p>
+  <input type="button" value="隨機"><br>
 
-  <input type="range" id="range" min="0" max="255" value="">
-  <p id="rgb">0</p>
-  <input type="button" value="隨機" id="btn">
+  <input type="range" min="0" max="255" value="">
+  <p>0</p>
+  <input type="button" value="隨機">
 
   <script>
-    const ranges = document.querySelectorAll('range')
-    const btns = document.querySelectorAll('btn')
-    const rgbs = document.querySelectorAll('rgb')
+    const ranges = document.querySelectorAll('input[type=range]')
+    const btns = document.querySelectorAll('input[type=button]')
+    const rgbs = document.getElementsByTagName('p')
 
     let color = [0, 0, 0]
 
-    const rangeText = () => {
-      rgb1.innerText = range1.value
+    for (let i = 0; i < btns.length; i++) {
 
+      btns[i].addEventListener('click', (e) => {
+        color[i] = Math.round(Math.random() * 255)
+        ranges[i].value = color[i]
+        rgbs[i].innerText = color[i]
+        box.style.backgroundColor = `rgb(${color.join(',')})`
+        // console.log(color)
+      })
     }
 
-    document.oninput = event => {
-      for (const range of ranges) {
-        if (oninput) {
-
-        }
+    document.oninput = (e) => {
+      for (let i = 0; i < ranges.length; i++) {
+        rgbs[i].innerText = ranges[i].value
+        color[i] = ranges[i].value
+        box.style.backgroundColor = `rgb(${color.join(',')})`
+        // console.log(color)
       }
-      rgb[0].innerText = range[0].value
-      color[0] = range1.value
-      rgb[1].innerText = range[1].value
-      color[1] = range[1].value
-      rgb3.innerText = range3.value
-      color[2] = range[2].value
-      box.style.backgroundColor = `rgb(${color.join(',')})`
-    }
-
-    btn1.onclick = () => {
-      color[0] = Math.round(Math.random() * 255)
-      range1.value = color[0]
-      rgb1.innerText = color[0]
-      box.style.backgroundColor = `rgb(${color.join(',')})`
-    }
-
-    btn2.onclick = () => {
-      color[1] = Math.round(Math.random() * 255)
-      range2.value = color[1]
-      rgb2.innerText = color[1]
-      box.style.backgroundColor = `rgb(${color.join(',')})`
-    }
-    btn3.onclick = () => {
-      color[2] = Math.round(Math.random() * 255)
-      range3.value = color[2]
-      rgb3.innerText = color[2]
-      box.style.backgroundColor = `rgb(${color.join(',')})`
     }
 
   </script>
