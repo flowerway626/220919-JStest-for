@@ -86,14 +86,16 @@
 
     let color1 = [0, 0, 0] // 左邊顏色
     let color2 = [0, 0, 0] // 右邊顏色
-    let angle = 45
+    let angle = 45         // 預設漸層角度
 
+    // 按下 隨機角度 時，漸層角度 = 0~360 的亂數
     random.addEventListener('click', () => {
       angle = Math.round(Math.random() * 360)
       console.log(angle)
     })
 
     // 按下 rgb隨機鈕 時
+    // for 迴圈需用 let ，用 const 無法改變 i，只會都是跑完迴圈的 5 = btn.length
     for (let i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', () => {
         if (i < 3) {
@@ -101,6 +103,8 @@
           ranges[i].value = color1[i]
           rgbs[i].innerText = color1[i]
         } else {
+          // color 只能存放 3 個值，其他都可以存放 6 個值
+          // btns.length = 6 使用[i]會有多餘須扣掉
           color2[i - 3] = Math.round(Math.random() * 255)
           ranges[i].value = color2[i - 3]
           rgbs[i].innerText = color2[i - 3]
