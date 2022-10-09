@@ -5,11 +5,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap"
+    rel="stylesheet">
+  <title>clock</title>
   <style>
     body {
       margin: 0;
-      font-family: "華康雅藝體W6外字集";
+      font-family: 'Noto Serif TC', serif;
+      background: #000;
     }
 
     #clock {
@@ -57,6 +60,22 @@
       position: absolute;
       transform-origin: left center;
     }
+
+    #today {
+      margin: 100px;
+      position: absolute;
+      top: 0;
+      font-size: 2rem;
+      color: #fff;
+    }
+
+    #week {
+      margin: 100px;
+      position: absolute;
+      top: calc(10vh);
+      font-size: 2rem;
+      color: #fff;
+    }
   </style>
 </head>
 
@@ -65,13 +84,12 @@
     <div id="hour"></div>
     <div id="minute"></div>
     <div id="second"></div>
-    <p id="today"></p>
-    <p id="time"></p>
-    <p id="day"></p>
   </div>
+  <p id="today"></p>
+  <p id="time"></p>
+  <p id="week"></p>
 
   <script>
-    const date = new Date()
     const hour = document.getElementById('hour')
     const minute = document.getElementById('minute')
     const second = document.getElementById('second')
@@ -79,15 +97,18 @@
     const time = document.getElementById('time')
     const day = document.getElementById('day')
 
+    const weeks = ['日', '一', '二', '三', '四', '五', '六']
     setInterval(() => {
+      const date = new Date()
       hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
       minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
       second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
+
+      today.innerText = date.toLocaleString("zh-tw")
+      // time.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+      week.innerText = weeks[date.getDay()]
     }, 1000)
 
-    today.innerText = date.toLocaleDateString()
-    time.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
-    console.log(String(date.getDay()))
   </script>
 </body>
 
