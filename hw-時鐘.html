@@ -10,26 +10,60 @@
   <title>clock</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Noto Serif TC', serif;
-      background: #000;
+      /* font-family: 'Noto Serif TC', serif; */
+      background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/3150fb153529877.6331b6fea1b18.jpg') no-repeat center 100%;
+      overflow: hidden;
+      background-attachment: fixed;
     }
+
+    /*Color Theme Swatches in Hex
+  { color: #6C7D8C; } { color: rgba(107, 125, 140); }
+  { color: #364C59; } { color: rgba(53, 75, 89); }
+  { color: #172126; } { color: rgba(23, 32, 38); }
+  { color: #0C0D0A; } { color: rgba(12, 12, 9) }
+  { color: #25261E; } { color: rgba(37, 38, 29); }
+  */
 
     #clock {
-      width: 300px;
-      height: 300px;
-      margin: auto;
-      position: relative;
+      width: 100%;
+      height: 30%;
+      position: absolute;
       top: calc(50vh - 150px);
-      border-radius: 50%;
-      background: #7CA5A6;
+      box-sizing: border-box;
+      /* padding: 0 100px; */
+      margin: auto;
     }
 
-    /* #A2F2ED #7CA5A6 #FFD1B5 #F5BA95 #A87556*/
-    /* 漸層 */
+    #clock li {
+      display: inline-block;
+      margin: auto;
+      text-align: center;
+      border: 1px solid #fff;
+    }
+
+    #clock #clockHour {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px solid rgb(53, 75, 89);
+    }
+
+    #clock #clockMinute {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px solid rgb(53, 75, 89);
+    }
+
+    #clock #clockSecond {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px solid rgb(53, 75, 89);
+    }
 
     #hour {
-      width: 20%;
+      width: 50%;
       height: 10px;
       background: #A87556;
       top: calc(50% - 5px);
@@ -40,7 +74,7 @@
     }
 
     #minute {
-      width: 40%;
+      width: 10%;
       height: 10px;
       background: #FFD1B5;
       top: calc(50% - 5px);
@@ -51,7 +85,7 @@
     }
 
     #second {
-      width: 50%;
+      width: 20%;
       height: 6px;
       background: #A2F2ED;
       top: calc(50% - 3px);
@@ -61,35 +95,48 @@
       transform-origin: left center;
     }
 
-    #today {
-      margin: 100px;
+    #text {
+      width: 100%;
+      height: 20%;
+      margin: auto;
+      top: calc(80%);
       position: absolute;
-      top: 0;
-      font-size: 2rem;
+      text-align: center;
       color: #fff;
+      font-size: 2rem;
+      list-style: none;
+      padding: 0;
     }
 
-    #week {
-      margin: 100px;
-      position: absolute;
-      top: calc(10vh);
-      font-size: 2rem;
-      color: #fff;
+    #text li {
+      display: inline-block;
+      width: 30%;
     }
   </style>
 </head>
 
 <body>
   <div id="clock">
-    <div id="hour"></div>
-    <div id="minute"></div>
-    <div id="second"></div>
+    <li id="clockHour"></li>
+    <li id="clockMinute"></li>
+    <li id="clockSecond"></li>
   </div>
-  <p id="today"></p>
-  <p id="time"></p>
-  <p id="week"></p>
+  <div id="pointer">
+    <li id="hour"></li>
+    <li id="minute"></li>
+    <li id="second"></li>
+  </div>
+  <div id="text">
+    <li id="today"></li>
+    <li id="time"></li>
+    <li id="week"></li>
+  </div>
+
 
   <script>
+    const clockHour = document.getElementById('clockHour')
+    const clockMinute = document.getElementById('clockMinute')
+    const clockSecond = document.getElementById('clockSecond')
     const hour = document.getElementById('hour')
     const minute = document.getElementById('minute')
     const second = document.getElementById('second')
@@ -97,15 +144,24 @@
     const time = document.getElementById('time')
     const day = document.getElementById('day')
 
-    const weeks = ['日', '一', '二', '三', '四', '五', '六']
+    const weeks = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
     setInterval(() => {
       const date = new Date()
-      hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
-      minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
-      second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
+      // hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
+      // minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
+      // second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
 
-      today.innerText = date.toLocaleString("zh-tw")
-      // time.innerText = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+      let Hour = date.getHours()
+      let Minute = date.getMinutes()
+      let Sec = date.getSeconds()
+      let Month = date.getMonth() + 1
+      Hour = (Hour < 13 ? 'A.M. 0' + Hour : 'P.M. 0' + (Hour - 12))
+      Minute = (Minute < 10 ? '0' : '') + Minute
+      Sec = (Sec < 10 ? '0' : '') + Sec
+      Month = (Month < 10 ? '0' : '') + Month
+
+      today.innerText = date.getFullYear() + ' / ' + Month + ' / ' + date.getDate()
+      time.innerText = Hour + ":" + Minute + ":" + Sec
       week.innerText = weeks[date.getDay()]
     }, 1000)
 
