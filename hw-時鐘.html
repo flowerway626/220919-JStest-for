@@ -14,6 +14,7 @@
       background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/3150fb153529877.6331b6fea1b18.jpg') no-repeat center 100%;
       overflow: hidden;
       background-attachment: fixed;
+      margin: 0;
     }
 
     /*Color Theme Swatches in Hex
@@ -28,55 +29,65 @@
       width: 100%;
       height: 30%;
       position: absolute;
-      top: calc(50vh - 150px);
+      top: calc(50vh - 100px);
       box-sizing: border-box;
-      /* padding: 0 100px; */
-      margin: auto;
-    }
-
-    #clock li {
-      display: inline-block;
-      margin: auto;
       text-align: center;
-      border: 1px solid #fff;
+      margin: auto;
+      padding: 0 200px;
     }
 
     #clock #clockHour {
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      border: 2px solid rgb(53, 75, 89);
+      float: left;
+      border: 2px solid #735441;
     }
 
     #clock #clockMinute {
       width: 200px;
       height: 200px;
       border-radius: 50%;
+      margin: 0;
+      display: inline-block;
       border: 2px solid rgb(53, 75, 89);
     }
 
     #clock #clockSecond {
       width: 200px;
       height: 200px;
+      float: right;
       border-radius: 50%;
-      border: 2px solid rgb(53, 75, 89);
+      border: 2px solid rgb(106, 109, 82);
     }
 
+    #clockSecond::after {
+      content: '';
+      width: 200px;
+      height: 40px;
+      top: 50%;
+      position: absolute;
+      background: linear-gradient(90deg, rgba(0, 0, 0, 0) 90%, rgb(106, 109, 82) 10%);
+      background-size: 15px;
+    }
+
+    /* ---------------------- 指針 ------------------------- */
+
     #hour {
-      width: 50%;
-      height: 10px;
-      background: #A87556;
+      width: 70px;
+      height: 5px;
+      background: #735441;
       top: calc(50% - 5px);
-      left: calc(50% - 5px);
+      left: calc(20% - 5px);
       border-radius: 5px;
       position: absolute;
       transform-origin: left center;
     }
 
     #minute {
-      width: 10%;
-      height: 10px;
-      background: #FFD1B5;
+      width: 90px;
+      height: 5px;
+      background: rgb(53, 75, 89);
       top: calc(50% - 5px);
       left: calc(50% - 5px);
       border-radius: 5px;
@@ -85,11 +96,11 @@
     }
 
     #second {
-      width: 20%;
-      height: 6px;
-      background: #A2F2ED;
+      width: 100px;
+      height: 5px;
+      background: rgb(106, 109, 82);
       top: calc(50% - 3px);
-      left: calc(50% - 3px);
+      left: calc(80%);
       border-radius: 5px;
       position: absolute;
       transform-origin: left center;
@@ -117,14 +128,15 @@
 
 <body>
   <div id="clock">
-    <li id="clockHour"></li>
-    <li id="clockMinute"></li>
-    <li id="clockSecond"></li>
+    <div id="clockHour"></div>
+    <div id="clockMinute"></div>
+    <div id="clockSecond"></div>
+    <!-- <div id="scaleSec"></div> -->
   </div>
   <div id="pointer">
-    <li id="hour"></li>
-    <li id="minute"></li>
-    <li id="second"></li>
+    <div id="hour"></div>
+    <div id="minute"></div>
+    <div id="second"></div>
   </div>
   <div id="text">
     <li id="today"></li>
@@ -145,20 +157,21 @@
     const day = document.getElementById('day')
 
     const weeks = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY']
+
     setInterval(() => {
       const date = new Date()
-      // hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
-      // minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
-      // second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
+      hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
+      minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
+      second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
 
       let Hour = date.getHours()
       let Minute = date.getMinutes()
       let Sec = date.getSeconds()
       let Month = date.getMonth() + 1
-      Hour = (Hour < 13 ? 'A.M. 0' + Hour : 'P.M. 0' + (Hour - 12))
+      Month = (Month < 10 ? '0' : '') + Month
+      Hour = Hour < 10 ? 'A.M. 0' + Hour : Hour < 12 ? 'A.M. ' + Hour : 'P.M. ' + (Hour - 12)
       Minute = (Minute < 10 ? '0' : '') + Minute
       Sec = (Sec < 10 ? '0' : '') + Sec
-      Month = (Month < 10 ? '0' : '') + Month
 
       today.innerText = date.getFullYear() + ' / ' + Month + ' / ' + date.getDate()
       time.innerText = Hour + ":" + Minute + ":" + Sec
