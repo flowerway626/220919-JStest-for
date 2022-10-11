@@ -6,20 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <title>calculator</title>
   <style>
-    /*  color: #D96690; }
-      { color: #F28DB2; }
-      { color: #F2C9E0; }
-      { color: #89C2D9; }
-      { color: #88E8F2; }
-      
-      { color: rgba(216, 101, 143, 1); }
-      { color: rgba(242, 140, 177, 1); }
-      { color: rgba(242, 201, 223, 1); }
-      { color: rgba(136, 194, 216, 1); }
-      { color: rgba(135, 231, 242, 1); }
- */
+    /* Color Theme Swatches in Hex 
+    { color: #BF8494; }{ color: rgba(191, 131, 147, 1); }
+    { color: #064973; } { color: rgba(5, 72, 114, 1); }
+    { color: #071A26; }{ color: rgba(6, 26, 38, 1); }
+    { color: #04668C; }{ color: rgba(4, 101, 140, 1); }
+    { color: #04738C; } { color: rgba(4, 115, 140, 1); }
+    */
 
     body {
       margin: 0;
@@ -27,15 +23,17 @@
       color: #fff;
       font-family: 'Signika', sans-serif;
       text-align: center;
+      background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/44973e150080465.62f35614b4f7f.jpg') no-repeat center center/100%;
+      background-attachment: fixed;
     }
 
     table {
       width: 200px;
       height: 300px;
       margin: auto;
-      border-collapse: collapse;
       border-radius: 100px;
       position: relative;
+      border-spacing: 0;
       top: calc(50vh - 170px);
     }
 
@@ -45,53 +43,62 @@
     }
 
     td:hover {
-      background: wheat;
+      background: rgb(191, 131, 147);
       transform: 1s;
     }
 
     #text {
       text-align: right;
-      padding-right: 10px;
+      padding-top: 0;
       font-size: 2.5rem;
-      background: #333;
+      background: #071A26;
     }
 
+    /* 歷程記錄 */
     #record {
       text-align: right;
       font-size: 0.5rem;
-      background: #333;
+      padding-bottom: 0;
+      background: #071A26;
     }
+
+    tr:first-child td:first-child {
+      border-top-left-radius: 500px;
+    }
+
+    tr:first-child td:last-child {
+      border-top-right-radius: 500px;
+    }
+
+    /* tr:last-child td:first-child {
+      border-bottom-left-radius: 500px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 500px;
+    } */
 
     tr:nth-child(3),
     td:nth-child(1n+4) {
-      background: rgba(216, 101, 143);
+      background: rgba(5, 72, 114);
     }
 
-    /* Color Theme Swatches in Hex 
-{ color: #BF8494; }
-{ color: #064973; }
-{ color: #071A26; }
-{ color: #04668C; }
-{ color: #04738C; }
-
- { color: rgba(191, 131, 147, 1); }
- { color: rgba(5, 72, 114, 1); }
- { color: rgba(6, 26, 38, 1); }
- { color: rgba(4, 101, 140, 1); }
- { color: rgba(4, 115, 140, 1); }
- */
-
-
     tr:nth-child(1n+4) {
-      background: rgba(136, 194, 216);
+      background: rgba(4, 101, 140);
+    }
+
+    td:nth-child(1n+4):hover {
+      background: rgb(191, 131, 147);
+      transform: 1s;
     }
   </style>
 </head>
 
 <body>
+
   <table>
     <tr>
-      <td colspan="4" id="record"></td>
+      <td colspan="4" id="record"> </td>
     </tr>
     <tr>
       <td colspan="4" id="text">0</td>
@@ -134,10 +141,12 @@
       btn.onclick = () => {
         const btnText = btn.innerText
         if (btnText === '=') {
-          record.insertAdjacentHTML('beforeend', text.innerText + '<br>')
+          record.innerText = ''
+          record.insertAdjacentHTML('beforeend', text.innerText + '=')
           // eval 直接執行文字裡的code
           text.innerText = eval(text.innerText)
         } else if (btnText === 'C') {
+          record.innerText = ''
           text.innerText = '0'
         } else {
           if (text.innerText === '-' && isNaN(parseInt(btnText))) return
@@ -153,13 +162,16 @@
 
     document.onkeydown = event => {
       const btnText = event.key
+      if (btnText === 'Delete') {
+        text.innerText = '0'
+      }
       if (btnText === 'Enter' || btnText === '=') {
         // 按 Enter 後的算式
         record.innerText = ''
-        record.insertAdjacentHTML('beforeend', text.innerText)
+        record.insertAdjacentHTML('beforeend', text.innerText + '=')
         // eval 直接執行文字裡的code
         text.innerText = eval(text.innerText)
-      } else if (btnText === 'C') {
+      } else if (btnText === 'C' || btnText === 'Delete') {
         text.innerText = '0'
       } else {
         if (text.innerText === '-' && !sNaN(parseInt(btnText))) return
