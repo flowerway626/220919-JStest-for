@@ -8,6 +8,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <title>calculator</title>
   <style>
+    /*  color: #D96690; }
+      { color: #F28DB2; }
+      { color: #F2C9E0; }
+      { color: #89C2D9; }
+      { color: #88E8F2; }
+      
+      { color: rgba(216, 101, 143, 1); }
+      { color: rgba(242, 140, 177, 1); }
+      { color: rgba(242, 201, 223, 1); }
+      { color: rgba(136, 194, 216, 1); }
+      { color: rgba(135, 231, 242, 1); }
+ */
+
     body {
       margin: 0;
       background: #000;
@@ -21,6 +34,7 @@
       height: 300px;
       margin: auto;
       border-collapse: collapse;
+      border-radius: 100px;
       position: relative;
       top: calc(50vh - 170px);
     }
@@ -39,12 +53,43 @@
       text-align: right;
       padding-right: 10px;
       font-size: 2.5rem;
+      background: #333;
+    }
+
+    #record {
+      text-align: right;
+      font-size: 0.5rem;
+      background: #333;
+    }
+
+    tr:nth-child(3),
+    td:nth-child(1n+4) {
+      background: rgba(216, 101, 143);
+    }
+
+    /* Color Theme Swatches in Hex 
+{ color: #BF8494; }
+{ color: #064973; }
+{ color: #071A26; }
+{ color: #04668C; }
+{ color: #04738C; }
+
+ { color: rgba(191, 131, 147, 1); }
+ { color: rgba(5, 72, 114, 1); }
+ { color: rgba(6, 26, 38, 1); }
+ { color: rgba(4, 101, 140, 1); }
+ { color: rgba(4, 115, 140, 1); }
+ */
+
+
+    tr:nth-child(1n+4) {
+      background: rgba(136, 194, 216);
     }
   </style>
 </head>
 
 <body>
-  <table border="1">
+  <table>
     <tr>
       <td colspan="4" id="record"></td>
     </tr>
@@ -75,7 +120,7 @@
       <td rowspan="2">=</td>
     </tr>
     <tr>
-      <td colspan="2" style="text-align: left;">0</td>
+      <td colspan="2">0</td>
       <td>.</td>
     </tr>
   </table>
@@ -83,12 +128,13 @@
   <script>
     const text = document.getElementById('text')
     const btns = document.querySelectorAll('td:not(#text)')
-    const recode = document.getElementById('recode')
+    const record = document.getElementById('record')
 
     for (const btn of btns) {
       btn.onclick = () => {
-        const btnText = btn.innerText.trim()
+        const btnText = btn.innerText
         if (btnText === '=') {
+          record.insertAdjacentHTML('beforeend', text.innerText + '<br>')
           // eval 直接執行文字裡的code
           text.innerText = eval(text.innerText)
         } else if (btnText === 'C') {
@@ -108,6 +154,9 @@
     document.onkeydown = event => {
       const btnText = event.key
       if (btnText === 'Enter' || btnText === '=') {
+        // 按 Enter 後的算式
+        record.innerText = ''
+        record.insertAdjacentHTML('beforeend', text.innerText)
         // eval 直接執行文字裡的code
         text.innerText = eval(text.innerText)
       } else if (btnText === 'C') {
