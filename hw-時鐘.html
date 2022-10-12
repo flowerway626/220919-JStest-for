@@ -13,8 +13,9 @@
       /* font-family: 'Noto Serif TC', serif; */
       background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/3150fb153529877.6331b6fea1b18.jpg') no-repeat center 100%;
       overflow: hidden;
+      height: 100%;
+      margin: auto;
       background-attachment: fixed;
-      margin: 0;
     }
 
     /*Color Theme Swatches in Hex
@@ -27,48 +28,47 @@
 
     #clock {
       width: 100%;
-      height: 30%;
-      position: absolute;
-      top: calc(50vh - 100px);
-      box-sizing: border-box;
-      text-align: center;
+      height: 100%;
+      position: fixed;
       margin: auto;
-      padding: 0 200px;
+      /* padding: 0 50px; */
     }
 
-    #clock #clockHour {
+    #clock ul {
+      height: 100%;
+      margin: 0;
+      padding: 0 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #clock li {
+      display: inline-block;
+    }
+
+    #clockHour {
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      float: left;
+      position: relative;
       border: 2px solid #735441;
     }
 
-    #clock #clockMinute {
+    #clockMinute {
       width: 200px;
       height: 200px;
       border-radius: 50%;
-      margin: 0;
-      display: inline-block;
+      position: relative;
       border: 2px solid rgb(53, 75, 89);
     }
 
-    #clock #clockSecond {
+    #clockSecond {
       width: 200px;
       height: 200px;
-      float: right;
+      position: relative;
       border-radius: 50%;
       border: 2px solid rgb(106, 109, 82);
-    }
-
-    #clockSecond::after {
-      content: '';
-      width: 200px;
-      height: 40px;
-      top: 50%;
-      position: absolute;
-      background: linear-gradient(90deg, rgba(0, 0, 0, 0) 90%, rgb(106, 109, 82) 10%);
-      background-size: 15px;
     }
 
     /* ---------------------- 指針 ------------------------- */
@@ -77,10 +77,11 @@
       width: 70px;
       height: 5px;
       background: #735441;
-      top: calc(50% - 5px);
-      left: calc(20% - 5px);
       border-radius: 5px;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50, -50%);
       transform-origin: left center;
     }
 
@@ -88,10 +89,11 @@
       width: 90px;
       height: 5px;
       background: rgb(53, 75, 89);
-      top: calc(50% - 5px);
-      left: calc(50% - 5px);
       border-radius: 5px;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50, -50%);
       transform-origin: left center;
     }
 
@@ -99,49 +101,70 @@
       width: 100px;
       height: 5px;
       background: rgb(106, 109, 82);
-      top: calc(50% - 3px);
-      left: calc(80%);
       border-radius: 5px;
       position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50, -50%);
       transform-origin: left center;
     }
 
+    /*------------------ 文字 ----------------- */
+
     #text {
       width: 100%;
-      height: 20%;
+      height: 30%;
       margin: auto;
-      top: calc(80%);
-      position: absolute;
-      text-align: center;
+      bottom: 0px;
+      position: fixed;
       color: #fff;
       font-size: 2rem;
-      list-style: none;
-      padding: 0;
+    }
+
+    #text ul {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 100px;
+      margin: 0;
+      text-align: center;
     }
 
     #text li {
+      list-style: none;
       display: inline-block;
-      width: 30%;
     }
   </style>
 </head>
 
 <body>
   <div id="clock">
-    <div id="clockHour"></div>
-    <div id="clockMinute"></div>
-    <div id="clockSecond"></div>
-    <!-- <div id="scaleSec"></div> -->
+    <ul>
+      <li>
+        <div id="clockHour">
+          <div id="hour"></div>
+        </div>
+      </li>
+      <li>
+        <div id="clockMinute">
+          <div id="minute"></div>
+        </div>
+      </li>
+      <li>
+        <div id="clockSecond">
+          <div id="second"></div>
+        </div>
+      </li>
+    </ul>
   </div>
-  <div id="pointer">
-    <div id="hour"></div>
-    <div id="minute"></div>
-    <div id="second"></div>
-  </div>
+
   <div id="text">
-    <li id="today"></li>
-    <li id="time"></li>
-    <li id="week"></li>
+    <ul>
+      <li id="today"></li>
+      <li id="time"></li>
+      <li id="week"></li>
+    </ul>
   </div>
 
 
@@ -169,7 +192,15 @@
       let Sec = date.getSeconds()
       let Month = date.getMonth() + 1
       Month = (Month < 10 ? '0' : '') + Month
-      Hour = Hour < 10 ? 'A.M. 0' + Hour : Hour < 12 ? 'A.M. ' + Hour : 'P.M. ' + (Hour - 12)
+      if (Hour < 10) {
+        Hour = 'A.M. 0' + Hour
+      } else if (Hour < 12) {
+        Hour = 'A.M. ' + Hour
+      } else if (Hour >= 12 && Hour < 22) {
+        Hour = 'P.M. 0' + (Hour - 12)
+      } else {
+        Hour = 'P.M. ' + (Hour - 12)
+      }
       Minute = (Minute < 10 ? '0' : '') + Minute
       Sec = (Sec < 10 ? '0' : '') + Sec
 
