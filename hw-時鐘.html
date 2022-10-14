@@ -39,34 +39,30 @@
       background: #ccc;
       font-size: 2rem;
       cursor: pointer;
+      margin: auto;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-block;
     }
 
-    #Check {
-      /* display: none; */
+    input {
+      display: none;
     }
 
-    #Check:checked+#clockSecond {
-      margin-right: 100px;
+    #Check:checked+#clockHour {
+      left: 625px;
+    }
+
+    #Check:checked~#clockSecond {
+      right: 625px;
     }
 
     #clock {
       width: 100%;
       height: 100%;
       position: fixed;
-      margin: auto;
-    }
-
-    #clock ul {
-      height: 100%;
-      margin: 0;
-      padding: 0 150px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    #clock li {
-      display: inline-block;
     }
 
     #clockHour {
@@ -74,7 +70,12 @@
       height: 200px;
       border-radius: 50%;
       position: relative;
-      border: 2px solid #735441;
+      border: 4px solid rgb(115, 84, 65);
+      float: left;
+      top: 210px;
+      transition: 0.5s;
+      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+
     }
 
     #clockMinute {
@@ -82,21 +83,29 @@
       height: 200px;
       border-radius: 50%;
       position: relative;
-      border: 2px solid rgb(53, 75, 89);
+      border: 4px solid rgb(53, 75, 89);
+      top: 210px;
+      margin: auto;
+      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+
     }
 
     #clockSecond {
       width: 200px;
       height: 200px;
       position: relative;
+      float: right;
+      /* right: 625px; */
       border-radius: 50%;
-      border: 2px solid rgb(106, 109, 82);
+      transition: 0.5s;
+      border: 4px solid rgb(106, 109, 82);
+      filter: drop-shadow(0 0 20px rgba(152, 156, 118)) drop-shadow(0 0 20px rgb(152, 156, 118));
     }
 
     /* ---------------------- 指針 ------------------------- */
 
     #hour {
-      width: 70px;
+      width: 50px;
       height: 5px;
       background: #735441;
       border-radius: 5px;
@@ -141,58 +150,32 @@
       position: fixed;
       color: #fff;
       font-size: 2rem;
-    }
-
-    #text ul {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 150px;
-      margin: 0;
       text-align: center;
-    }
-
-    #text li {
-      list-style: none;
-      display: inline-block;
     }
   </style>
 </head>
 
 <body>
-  <div id="input">
+  <div id="clock">
     <label for="Check">Check</label>
     <input type="checkbox" id="Check">
-  </div>
-  <div id="clock">
-    <ul>
-      <li>
-        <div id="clockHour">
-          <div id="hour"></div>
-        </div>
-      </li>
-      <li>
-        <div id="clockMinute">
-          <div id="minute"></div>
-        </div>
-      </li>
-      <li>
-        <div id="clockSecond">
-          <div id="second"></div>
-        </div>
-      </li>
-    </ul>
-  </div>
+    <div id="clockHour">
+      <div id="hour"></div>
+    </div>
 
+    <div id="clockMinute">
+      <div id="minute"></div>
+    </div>
+
+    <div id="clockSecond">
+      <div id="second"></div>
+    </div>
+  </div>
   <div id="text">
-    <ul>
-      <li id="today"></li>
-      <li id="time"></li>
-      <li id="week"></li>
-    </ul>
+    <div id="today"></div>
+    <div id="time"></div>
+    <div id="week"></div>
   </div>
-
 
   <script>
     const clockHour = document.getElementById('clockHour')
