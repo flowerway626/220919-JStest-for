@@ -13,8 +13,8 @@
       /* font-family: 'Noto Serif TC', serif; */
       background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/3150fb153529877.6331b6fea1b18.jpg') no-repeat center 100%;
       overflow: hidden;
-      height: 100%;
       margin: auto;
+      height: 100%;
       background-attachment: fixed;
     }
 
@@ -25,26 +25,19 @@
   { color: #0C0D0A; } { color: rgba(12, 12, 9) }
   { color: #25261E; } { color: rgba(37, 38, 29); }
   */
-    #input {
-      /* top: 10%; */
-      /* left: 50%; */
-      /* position: fixed; */
-      /* transform: translate(-50%, -50%); */
-    }
 
     label[for="Check"] {
       padding: 5px;
+      top: 20%;
+      left: 50%;
+      margin: auto;
       border: 1px solid #aaa;
       border-radius: 10px;
       background: #ccc;
       font-size: 2rem;
       cursor: pointer;
-      margin: auto;
-      position: absolute;
-      top: 20%;
-      left: 50%;
+      position: fixed;
       transform: translate(-50%, -50%);
-      display: inline-block;
     }
 
     input {
@@ -52,52 +45,55 @@
     }
 
     #Check:checked+#clockHour {
-      left: 625px;
+      float: none;
+      display: inline-block;
+      transform: translateX(102%);
     }
 
     #Check:checked~#clockSecond {
-      right: 625px;
+      float: none;
+      display: inline-block;
+      transform: translateX(-102%);
     }
 
     #clock {
-      width: 100%;
+      width: 80%;
       height: 100%;
-      position: fixed;
+      margin: auto;
+      text-align: center;
     }
 
     #clockHour {
       width: 200px;
       height: 200px;
+      top: 210px;
+      float: left;
       border-radius: 50%;
       position: relative;
+      transition: 0.8s;
       border: 4px solid rgb(115, 84, 65);
-      float: left;
-      top: 210px;
-      transition: 0.5s;
       filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
-
     }
 
     #clockMinute {
       width: 200px;
       height: 200px;
-      border-radius: 50%;
-      position: relative;
-      border: 4px solid rgb(53, 75, 89);
       top: 210px;
-      margin: auto;
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      border: 4px solid rgb(53, 75, 89);
       filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
-
     }
 
     #clockSecond {
       width: 200px;
       height: 200px;
-      position: relative;
+      top: 210px;
       float: right;
-      /* right: 625px; */
+      position: relative;
       border-radius: 50%;
-      transition: 0.5s;
+      transition: 0.8s;
       border: 4px solid rgb(106, 109, 82);
       filter: drop-shadow(0 0 20px rgba(152, 156, 118)) drop-shadow(0 0 20px rgb(152, 156, 118));
     }
@@ -140,7 +136,7 @@
       transform-origin: left center;
     }
 
-    /*------------------ 文字 ----------------- */
+    /* ---------------------- 文字 ------------------------- */
 
     #text {
       width: 100%;
@@ -151,31 +147,104 @@
       color: #fff;
       font-size: 2rem;
       text-align: center;
+
+    }
+
+    /* ---------------------- 刻度 ------------------------- */
+
+    #clockHour .scale {
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      transform: rotate(30deg);
+      background: linear-gradient(rgb(176, 130, 100) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(176, 130, 100) 95% 100%);
+      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+    }
+
+    #clockHour .scale::after {
+      content: '';
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      transform: rotate(90deg);
+      background: linear-gradient(rgb(176, 130, 100) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(176, 130, 100) 95% 100%);
+      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+    }
+
+    #clockMinute .scale {
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      background: linear-gradient(rgb(102, 143, 169) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(102, 143, 169) 92% 100%);
+      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+    }
+
+    #clockMinute .scale::after {
+      content: '';
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      transform: rotate(90deg);
+      background: linear-gradient(rgb(102, 143, 169) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(102, 143, 169) 92% 100%);
+      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+    }
+
+    #clockSecond .scale {
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      transform: rotate(60deg);
+      background: linear-gradient(rgb(152, 156, 118) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(152, 156, 118) 95% 100%);
+    }
+
+    #clockSecond .scale::after {
+      content: '';
+      width: 2px;
+      height: 200px;
+      left: 50%;
+      position: absolute;
+      transform: rotate(90deg);
+      background: linear-gradient(rgb(152, 156, 118) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(152, 156, 118) 95% 100%);
+      filter: drop-shadow(0 0 20px rgba(152, 156, 118)) drop-shadow(0 0 20px rgb(152, 156, 118));
+
     }
   </style>
 </head>
 
 <body>
+
   <div id="clock">
-    <label for="Check">Check</label>
+    <label for="Check">CHECK</label>
     <input type="checkbox" id="Check">
+
     <div id="clockHour">
       <div id="hour"></div>
+      <div class="scale"></div>
     </div>
 
     <div id="clockMinute">
       <div id="minute"></div>
+      <div class="scale"></div>
     </div>
 
     <div id="clockSecond">
       <div id="second"></div>
+      <div class="scale"></div>
     </div>
   </div>
-  <div id="text">
-    <div id="today"></div>
-    <div id="time"></div>
-    <div id="week"></div>
-  </div>
+
+  <table id="text">
+    <tr>
+      <td id="today"></td>
+      <td id="time"></td>
+      <td id="week"></td>
+    </tr>
+  </table>
 
   <script>
     const clockHour = document.getElementById('clockHour')
@@ -192,26 +261,18 @@
 
     setInterval(() => {
       const date = new Date()
+      // rotate 為 時鐘指針
       hour.style.transform = `rotate(${date.getHours() * 30 - 90}deg)`
       minute.style.transform = `rotate(${date.getMinutes() * 6 - 90}deg)`
       second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
 
-      let Hour = date.getHours()
-      let Minute = date.getMinutes()
-      let Sec = date.getSeconds()
-      let Month = date.getMonth() + 1
-      Month = (Month < 10 ? '0' : '') + Month
-      if (Hour < 10) {
-        Hour = 'A.M. 0' + Hour
-      } else if (Hour < 12) {
-        Hour = 'A.M. ' + Hour
-      } else if (Hour >= 12 && Hour < 22) {
-        Hour = 'P.M. 0' + (Hour - 12)
-      } else {
-        Hour = 'P.M. ' + (Hour - 12)
-      }
-      Minute = (Minute < 10 ? '0' : '') + Minute
-      Sec = (Sec < 10 ? '0' : '') + Sec
+      // 將 月、時、分、秒 改為兩位數(個位數時前格補 0)
+      let Hour = (date.getHours() - 12).toString().padStart(2, '0')
+      let Minute = date.getMinutes().toString().padStart(2, '0')
+      let Sec = date.getSeconds().toString().padStart(2, '0')
+      let Month = (date.getMonth() + 1).toString().padStart(2, '0')
+      // 在 小時 前加上AM PM
+      Hour = (Hour + 12) < 12 ? 'A.M. ' + Hour : 'P.M. ' + Hour
 
       today.innerText = date.getFullYear() + ' / ' + Month + ' / ' + date.getDate()
       time.innerText = Hour + ":" + Minute + ":" + Sec
