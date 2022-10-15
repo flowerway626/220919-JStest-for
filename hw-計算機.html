@@ -30,14 +30,22 @@
     table {
       width: 200px;
       height: 300px;
-      margin: auto;
+      float: left;
+      text-align: center;
       border-radius: 100px;
       position: relative;
       border-spacing: 0;
       top: calc(50vh - 170px);
+      left: calc(50vw - 130px);
+    }
+
+    tbody {
+      width: 100%;
+      height: 100%;
     }
 
     td {
+      box-sizing: border-box;
       padding: 10px;
       font-size: 1.5rem;
     }
@@ -54,29 +62,43 @@
       background: #071A26;
     }
 
-    /* 歷程記錄 */
+    /* 最新記錄 */
     #record {
       text-align: right;
       font-size: 0.5rem;
       padding-bottom: 0;
       background: #071A26;
+      border-top-left-radius: 1000px;
+      border-top-right-radius: 1000px;
     }
 
-    tr:first-child td:first-child {
-      border-top-left-radius: 500px;
+    #recordAll {
+      width: 200px;
+      height: 300px;
+      position: relative;
+      background: #071A26;
+      color: #fff;
+      list-style: none;
+      text-align: left;
+      float: left;
+      border-radius: 15px;
+      box-sizing: border-box;
+      padding: 10px;
+      top: calc(50vh - 170px);
+      left: calc(50vw - 130px);
     }
 
-    tr:first-child td:last-child {
-      border-top-right-radius: 500px;
+    #recordAll li {
+      padding-bottom: 5px;
     }
 
-    /* tr:last-child td:first-child {
-      border-bottom-left-radius: 500px;
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 15px;
     }
 
-    tr:last-child td:last-child {
-      border-bottom-right-radius: 500px;
-    } */
+    tr:nth-child(6) td:last-child {
+      border-bottom-right-radius: 15px;
+    }
 
     tr:nth-child(3),
     td:nth-child(1n+4) {
@@ -131,20 +153,28 @@
       <td>.</td>
     </tr>
   </table>
+  <ul id="recordAll"></ul>
 
   <script>
+    // 輸入的數字
     const text = document.getElementById('text')
+    // 除了 text 以外所有的 td 
     const btns = document.querySelectorAll('td:not(#text)')
+    // 最新一個紀錄
     const record = document.getElementById('record')
-
+    const recordAll = document.getElementById('recordAll')
     for (const btn of btns) {
       btn.onclick = () => {
         const btnText = btn.innerText
         if (btnText === '=') {
+          // 先清空紀錄
           record.innerText = ''
+          // 再新增最新的
           record.insertAdjacentHTML('beforeend', text.innerText + '=')
-          // eval 直接執行文字裡的code
+          // eval 執行文字裡的算式
           text.innerText = eval(text.innerText)
+          recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText + text.innerText} </li>`)
+          // 按 C 時清空欄
         } else if (btnText === 'C') {
           record.innerText = ''
           text.innerText = '0'
@@ -168,9 +198,10 @@
       if (btnText === 'Enter' || btnText === '=') {
         // 按 Enter 後的算式
         record.innerText = ''
-        record.insertAdjacentHTML('beforeend', text.innerText + '=')
+        record.insertAdjacentHTML('beforeend', text.innerText + ' = ')
         // eval 直接執行文字裡的code
         text.innerText = eval(text.innerText)
+        recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText + text.innerText} </li>`)
       } else if (btnText === 'C' || btnText === 'Delete') {
         text.innerText = '0'
       } else {
