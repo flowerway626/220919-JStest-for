@@ -19,7 +19,6 @@
 
     body {
       margin: 0;
-      background: #000;
       color: #fff;
       font-family: 'Signika', sans-serif;
       text-align: center;
@@ -27,66 +26,72 @@
       background-attachment: fixed;
     }
 
-    table {
-      width: 200px;
-      height: 300px;
+    #calculator {
+      width: 300px;
+      height: 470px;
       float: left;
+      padding: 8px;
+      margin: 0;
       text-align: center;
-      border-radius: 100px;
-      position: relative;
-      border-spacing: 0;
-      top: calc(50vh - 170px);
-      left: calc(50vw - 130px);
+      border-radius: 20px;
+      box-sizing: border-box;
+      position: absolute;
+      border-spacing: 5px;
+      top: calc(50vh - 200px);
+      left: calc(50vw - 150px);
+      background: #071A26;
+      transition: 0.5s;
     }
 
-    tbody {
-      width: 100%;
-      height: 100%;
+    /* 最新記錄 */
+    #record {
+      height: 30px;
+      text-align: right;
+      font-size: 1.5rem;
+      background: #000;
+    }
+
+    #set {
+      font-size: 1.5rem;
+      transition: 0.5s;
+    }
+
+    #recordAll {
+      width: 300px;
+      height: 470px;
+      position: absolute;
+      background: #071A26;
+      list-style: none;
+      text-align: left;
+      float: left;
+      padding: 1rem;
+      margin: 0;
+      border-radius: 20px;
+      box-sizing: border-box;
+      top: calc(50vh - 200px);
+      left: calc(50vw - 150px);
+      transition: 0.5s;
+      z-index: -1;
     }
 
     td {
       box-sizing: border-box;
       padding: 10px;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      border-radius: 8px;
     }
 
     td:hover {
-      background: rgb(191, 131, 147);
-      transform: 1s;
+      background: #BF8494;
+      transition: 0.3s;
     }
 
     #text {
       text-align: right;
-      padding-top: 0;
       font-size: 2.5rem;
-      background: #071A26;
+      background: #000;
     }
 
-    /* 最新記錄 */
-    #record {
-      text-align: right;
-      font-size: 0.5rem;
-      padding-bottom: 0;
-      background: #071A26;
-      border-top-left-radius: 1000px;
-      border-top-right-radius: 1000px;
-    }
-
-    #recordAll {
-      width: 200px;
-      height: 300px;
-      position: relative;
-      background: #071A26;
-      color: #fff;
-      list-style: none;
-      text-align: left;
-      float: left;
-      border-radius: 15px;
-      box-sizing: border-box;
-      padding: 10px;
-      top: calc(50vh - 170px);
-      left: calc(50vw - 130px);
-    }
 
     #recordAll li {
       padding-bottom: 5px;
@@ -110,16 +115,16 @@
     }
 
     td:nth-child(1n+4):hover {
-      background: rgb(191, 131, 147);
-      transform: 1s;
+      background: #BF8494;
     }
   </style>
 </head>
 
 <body>
 
-  <table>
+  <table id="calculator">
     <tr>
+      <td id="set"> ≡ </td>
       <td colspan="4" id="record"> </td>
     </tr>
     <tr>
@@ -153,7 +158,9 @@
       <td>.</td>
     </tr>
   </table>
-  <ul id="recordAll"></ul>
+  <ul id="recordAll">
+    <h3 style="margin:0 0 8px; text-align: center;">● 歷史紀錄 ●</h3>
+  </ul>
 
   <script>
     // 輸入的數字
@@ -163,6 +170,10 @@
     // 最新一個紀錄
     const record = document.getElementById('record')
     const recordAll = document.getElementById('recordAll')
+    const set = document.getElementById('set')
+    const calculator = document.getElementById('calculator')
+    let setNum = 0
+
     for (const btn of btns) {
       btn.onclick = () => {
         const btnText = btn.innerText
@@ -170,9 +181,10 @@
           // 先清空紀錄
           record.innerText = ''
           // 再新增最新的
-          record.insertAdjacentHTML('beforeend', text.innerText + '=')
+          record.insertAdjacentHTML('beforeend', text.innerText)
           // eval 執行文字裡的算式
           text.innerText = eval(text.innerText)
+          // 將算式顯示在歷程記錄裡
           recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText + text.innerText} </li>`)
           // 按 C 時清空欄
         } else if (btnText === 'C') {
@@ -189,19 +201,30 @@
         }
       }
     }
+    // 顯示計算歷史紀錄
+    set.onclick = () => {
+      setNum++
+      if (setNum % 2 !== 0) {
+        // 位移無法用 marginRight ???
+        recordAll.style.marginLeft = "160px"
+        calculator.style.marginLeft = "-150px"
+      } else {
+        recordAll.style.marginLeft = "0px"
+        calculator.style.marginLeft = "0px"
+      }
+    }
 
     document.onkeydown = event => {
       const btnText = event.key
       if (btnText === 'Delete') {
         text.innerText = '0'
-      }
-      if (btnText === 'Enter' || btnText === '=') {
+      } else if (btnText === 'Enter' || btnText === '=') {
         // 按 Enter 後的算式
         record.innerText = ''
-        record.insertAdjacentHTML('beforeend', text.innerText + ' = ')
+        record.insertAdjacentHTML('beforeend', text.innerText)
         // eval 直接執行文字裡的code
         text.innerText = eval(text.innerText)
-        recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText + text.innerText} </li>`)
+        recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText} = ${text.innerText} </li>`)
       } else if (btnText === 'C' || btnText === 'Delete') {
         text.innerText = '0'
       } else {
