@@ -37,10 +37,11 @@
       box-sizing: border-box;
       position: absolute;
       border-spacing: 5px;
-      top: calc(50vh - 200px);
+      top: calc(50vh - 235px);
       left: calc(50vw - 150px);
       background: #071A26;
       transition: 0.5s;
+      box-shadow: 0 0 10px #aaa;
     }
 
     /* 最新記錄 */
@@ -48,7 +49,6 @@
       height: 30px;
       text-align: right;
       font-size: 1.5rem;
-      background: #000;
     }
 
     #set {
@@ -68,7 +68,7 @@
       margin: 0;
       border-radius: 20px;
       box-sizing: border-box;
-      top: calc(50vh - 200px);
+      top: calc(50vh - 235px);
       left: calc(50vw - 150px);
       transition: 0.5s;
       z-index: -1;
@@ -81,8 +81,9 @@
       border-radius: 8px;
     }
 
-    td:hover {
+    td:not(#text):hover {
       background: #BF8494;
+      cursor: pointer;
       transition: 0.3s;
     }
 
@@ -205,9 +206,9 @@
     set.onclick = () => {
       setNum++
       if (setNum % 2 !== 0) {
-        // 位移無法用 marginRight ???
-        recordAll.style.marginLeft = "160px"
-        calculator.style.marginLeft = "-150px"
+        recordAll.style.marginLeft = "-150px"
+        calculator.style.marginLeft = "160px"
+        recordAll.style.boxShadow = "0 0 10px #999"
       } else {
         recordAll.style.marginLeft = "0px"
         calculator.style.marginLeft = "0px"
@@ -228,7 +229,7 @@
       } else if (btnText === 'C' || btnText === 'Delete') {
         text.innerText = '0'
       } else {
-        if (text.innerText === '-' && !sNaN(parseInt(btnText))) return
+        if (text.innerText === '-' && isNaN(parseInt(btnText))) return
 
         if (text.innerText !== '0') {
           text.innerText += btnText
@@ -236,8 +237,20 @@
           text.innerText = btnText
         }
       }
+      // 按下時按鈕換顏色
+      for (const btn of btns) {
+        if (event.key === btn.innerText || event.key === 'c') {
+          btn.style.background = "#BF8494"
+        }
+      }
     }
-
+    // 放開時按鈕換回原設定顏色
+    document.onkeyup = event => {
+      for (const btn of btns) {
+        btn.style.background = "none"
+        calculator.style.transition = "0.3s"
+      }
+    }
   </script>
 </body>
 
