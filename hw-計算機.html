@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -72,6 +72,7 @@
       left: calc(50vw - 150px);
       transition: 0.5s;
       z-index: -1;
+      overflow-y: auto;
     }
 
     td {
@@ -174,6 +175,14 @@
     const set = document.getElementById('set')
     const calculator = document.getElementById('calculator')
     let setNum = 0
+    window.name = 'first'
+    // 抓history的資料防bug
+    // 宣告 history 
+    const history = localStorage.history ? JSON.parse(localStorage.history) : {}
+    console.log(history)
+    for (let i = 0; i < history.length; i++) {
+      recordAll.insertAdjacentHTML('beforeend', `<li>${history[i]} </li>`)
+    }
 
     for (const btn of btns) {
       btn.onclick = () => {
@@ -185,8 +194,15 @@
           record.insertAdjacentHTML('beforeend', text.innerText)
           // eval 執行文字裡的算式
           text.innerText = eval(text.innerText)
-          // 將算式顯示在歷程記錄裡
-          recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText + text.innerText} </li>`)
+
+          // 將最新的紀錄新增存放在 history 陣列中
+          history.push(record.innerText + '=' + text.innerText)
+          // 將 history 轉為文字存入 本地儲存 localStorage
+          localStorage.history = JSON.stringify(history)
+          // 用 .slice 找 history 的最後一個值，回傳放在歷史紀錄
+          recordAll.insertAdjacentHTML('beforeend', `<li>${history.slice(-1).join()} </li>`)
+          console.log(history)
+
           // 按 C 時清空欄
         } else if (btnText === 'C') {
           record.innerText = ''
@@ -214,7 +230,6 @@
         calculator.style.marginLeft = "0px"
       }
     }
-
     document.onkeydown = event => {
       const btnText = event.key
       if (btnText === 'Delete') {
@@ -225,11 +240,22 @@
         record.insertAdjacentHTML('beforeend', text.innerText)
         // eval 直接執行文字裡的code
         text.innerText = eval(text.innerText)
-        recordAll.insertAdjacentHTML('beforeend', `<li>${record.innerText} = ${text.innerText} </li>`)
+
+        // 將最新的紀錄新增病存放在 history 陣列中
+        history.push(record.innerText + '=' + text.innerText)
+        // 將 history 轉為文字存入 本地儲存 localStorage
+        localStorage.history = JSON.stringify(history)
+        // 用 .slice 找 history 的最後一個值，回傳放在歷史紀錄
+        recordAll.insertAdjacentHTML('beforeend', `<li>${history.slice(-1).join()} </li>`)
+        console.log(history)
+
       } else if (btnText === 'C' || btnText === 'Delete') {
         text.innerText = '0'
       } else {
         if (text.innerText === '-' && isNaN(parseInt(btnText))) return
+
+        // 如果按的鍵 不是 符號跟數字的話return
+        if (!['+', '*', '/', 'C', '=', '-'].includes(btnText) && !btnText.match(/[0-9.]/g)) return
 
         if (text.innerText !== '0') {
           text.innerText += btnText
@@ -251,6 +277,9 @@
         calculator.style.transition = "0.3s"
       }
     }
+    window.onload = function () {
+    }
+    // }
   </script>
 </body>
 
