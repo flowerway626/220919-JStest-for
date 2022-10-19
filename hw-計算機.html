@@ -220,9 +220,9 @@
     const set = document.getElementById('set')
     // 開合次數
     let setNum = 0
-
     // 抓 history 的資料防 bug
-    const history = localStorage.history ? JSON.parse(localStorage.history) : { num: '' }
+    // 進入頁面時，如果localStorage 裡有 history(文字屬性) 則 .parse()轉成陣列，否則給陣列空值
+    const history = localStorage.history ? JSON.parse(localStorage.history) : []
     // 重新載入時用迴圈把存在 localStorage 的資料(history) 顯示於歷史紀錄
     for (let i = 0; i < history.length; i++) {
       recordHistory.insertAdjacentHTML('beforeend', `<li>${history[i]} </li>`)
@@ -284,9 +284,8 @@
         // 最新紀錄先清空前一筆，再顯示新一筆
         record.innerText = ''
         record.insertAdjacentHTML('beforeend', text.innerText)
-        // eval 直接執行文字裡的code
+        // eval 執行文字裡的code
         text.innerText = eval(text.innerText)
-
         // 將最新的紀錄新增至 history 陣列中
         history.push(record.innerText + '=' + text.innerText)
         // 將 history 轉為文字存入 本地儲存 localStorage
