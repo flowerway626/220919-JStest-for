@@ -51,7 +51,7 @@
     /* 計算機本體 table */
     #calculator {
       width: 300px;
-      height: 470px;
+      height: 500px;
       float: left;
       padding: 8px;
       text-align: center;
@@ -133,7 +133,7 @@
     /* 歷史紀錄頁面 div */
     #recordAll {
       width: 300px;
-      height: 470px;
+      height: 500px;
       position: absolute;
       /* 押在計算機下 */
       z-index: -1;
@@ -286,6 +286,7 @@
         record.insertAdjacentHTML('beforeend', text.innerText)
         // eval 執行文字裡的code
         text.innerText = eval(text.innerText)
+
         // 將最新的紀錄新增至 history 陣列中
         history.push(record.innerText + '=' + text.innerText)
         // 將 history 轉為文字存入 本地儲存 localStorage
@@ -319,6 +320,7 @@
     document.onkeyup = event => {
       for (const btn of btns) {
         btn.style.background = "none"
+        btn.style.boxShadow = 'none'
         calculator.style.transition = "0.3s"
       }
     }
