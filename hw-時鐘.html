@@ -16,19 +16,10 @@
 
     body {
       background: #000;
-      /* background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/3150fb153529877.6331b6fea1b18.jpg') no-repeat center center/cover; */
       background-attachment: fixed;
       font-family: 'Black Ops One', 'Noto Sans TC', sans-serif, cursive;
       /* overflow: hidden; */
     }
-
-    /*Color Theme Swatches in Hex
-  { color: #6C7D8C; } { color: rgba(107, 125, 140); }
-  { color: #364C59; } { color: rgba(53, 75, 89); }
-  { color: #172126; } { color: rgba(23, 32, 38); }
-  { color: #0C0D0A; } { color: rgba(12, 12, 9) }
-  { color: #25261E; } { color: rgba(37, 38, 29); }
-  */
 
     #hover {
       width: 120px;
@@ -79,21 +70,22 @@
     #clockHour {
       float: left;
       transition: 0.8s;
-      border: 4px solid rgb(115, 84, 65);
-      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+      border: 4px solid rgb(9, 130, 0);
+      filter: drop-shadow(0 0 20px rgb(164, 255, 202)) drop-shadow(0 0 20px rgb(164, 255, 202));
     }
 
     #clockMinute {
       display: inline-block;
-      border: 4px solid rgb(53, 75, 89);
-      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+      border: 4px solid rgb(0, 115, 187);
+      filter: drop-shadow(0 0 20px rgb(167, 221, 255)) drop-shadow(0 0 20px rgb(167, 221, 255));
     }
 
     #clockSecond {
       float: right;
       transition: 0.8s;
-      border: 4px solid rgb(106, 109, 82);
-      filter: drop-shadow(0 0 20px rgba(152, 156, 118)) drop-shadow(0 0 20px rgb(152, 156, 118));
+      border: 4px solid rgb(163, 14, 255);
+      filter: drop-shadow(0 0 20px rgb(220, 200, 255)) drop-shadow(0 0 20px rgb(220, 200, 255));
+      /* filter: hue-rotate(600deg); */
     }
 
     /* ---------------------- 指針 ------------------------- */
@@ -111,21 +103,21 @@
     #hour {
       width: 50px;
       height: 5px;
-      background: #735441;
+      background: rgb(9, 130, 0);
       transform-origin: left center;
     }
 
     #minute {
       width: 90px;
       height: 5px;
-      background: rgb(53, 75, 89);
+      background: rgb(0, 115, 187);
       transform-origin: left center;
     }
 
     #second {
       width: 100px;
       height: 5px;
-      background: rgb(106, 109, 82);
+      background: rgb(163, 14, 255);
       transform-origin: left center;
     }
 
@@ -205,8 +197,8 @@
       left: 50%;
       position: absolute;
       transform: rotate(30deg);
-      background: linear-gradient(rgb(176, 130, 100) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(176, 130, 100) 95% 100%);
-      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+      background: linear-gradient(rgb(164, 255, 202) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(164, 255, 202) 95% 100%);
+      filter: drop-shadow(0 0 20px rgb(164, 255, 202)) drop-shadow(0 0 20px rgb(164, 255, 202));
     }
 
     #clockHour .scale::after {
@@ -216,8 +208,8 @@
       left: 50%;
       position: absolute;
       transform: rotate(90deg);
-      background: linear-gradient(rgb(176, 130, 100) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(176, 130, 100) 95% 100%);
-      filter: drop-shadow(0 0 20px rgb(176, 130, 100)) drop-shadow(0 0 20px rgb(176, 130, 100));
+      background: linear-gradient(rgb(164, 255, 202) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(164, 255, 202) 95% 100%);
+      filter: drop-shadow(0 0 20px rgb(164, 255, 202)) drop-shadow(0 0 20px rgb(164, 255, 202));
     }
 
     #clockMinute .scale {
@@ -225,8 +217,8 @@
       height: 200px;
       left: 50%;
       position: absolute;
-      background: linear-gradient(rgb(102, 143, 169) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(102, 143, 169) 92% 100%);
-      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+      background: linear-gradient(rgb(167, 221, 255) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(167, 221, 255) 92% 100%);
+      filter: drop-shadow(0 0 20px rgb(167, 221, 255)) drop-shadow(0 0 20px rgba(102, 143, 169));
     }
 
     #clockMinute .scale::after {
@@ -236,8 +228,8 @@
       left: 50%;
       position: absolute;
       transform: rotate(90deg);
-      background: linear-gradient(rgb(102, 143, 169) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(102, 143, 169) 92% 100%);
-      filter: drop-shadow(0 0 20px rgb(102, 143, 169)) drop-shadow(0 0 20px rgba(102, 143, 169));
+      background: linear-gradient(rgb(167, 221, 255) 0% 8%, rgba(0, 0, 0, 0) 8% 92%, rgb(167, 221, 255) 92% 100%);
+      filter: drop-shadow(0 0 20px rgb(167, 221, 255)) drop-shadow(0 0 20px rgb(167, 221, 255));
     }
 
     #clockSecond .scale {
@@ -246,7 +238,7 @@
       left: 50%;
       position: absolute;
       transform: rotate(60deg);
-      background: linear-gradient(rgb(152, 156, 118) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(152, 156, 118) 95% 100%);
+      background: linear-gradient(rgb(220, 200, 255) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(220, 200, 255) 95% 100%);
     }
 
     #clockSecond .scale::after {
@@ -256,9 +248,8 @@
       left: 50%;
       position: absolute;
       transform: rotate(90deg);
-      background: linear-gradient(rgb(152, 156, 118) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(152, 156, 118) 95% 100%);
-      filter: drop-shadow(0 0 20px rgba(152, 156, 118)) drop-shadow(0 0 20px rgb(152, 156, 118));
-
+      background: linear-gradient(rgb(220, 200, 255) 0% 5%, rgba(0, 0, 0, 0) 5% 95%, rgb(220, 200, 255) 95% 100%);
+      filter: drop-shadow(0 0 20px rgb(220, 200, 255)) drop-shadow(0 0 20px rgb(220, 200, 255));
     }
   </style>
 </head>
@@ -334,11 +325,11 @@
       minute.style.transform = `rotate(${date.getMinutes() * 6 - -90}deg)`
       second.style.transform = `rotate(${date.getSeconds() * 6 - 90}deg)`
       // 解決到整點時會逆時針轉一圈的 bug
-      if (hour.style.transform === 'rotate(-90deg)') hour.style.transition = '0s'
+      if (date.getHours() * 30 - 90 === -90) hour.style.transition = '0s'
       else hour.style.transition = '0.5s'
-      if (minute.style.transform === 'rotate(-90deg)') minute.style.transition = '0s'
+      if (date.getMinutes() * 6 - 90 === -90) minute.style.transition = '0s'
       else minute.style.transition = '0.5s'
-      if (second.style.transform === 'rotate(-90deg)') second.style.transition = '0s'
+      if (date.getSeconds() * 6 - 90 === -90) second.style.transition = '0s'
       else second.style.transition = '0.5s'
 
       // .padStart 將 數值(月、時、分、秒) 改為兩位數(個位數則補 0)
@@ -346,10 +337,9 @@
       let Minute = date.getMinutes().toString().padStart(2, '0')
       let Sec = date.getSeconds().toString().padStart(2, '0')
       let Month = (date.getMonth() + 1).toString().padStart(2, '0')
-      let Dates = (date.getDate() + 1).toString().padStart(2, '0')
+      let Dates = date.getDate().toString().padStart(2, '0')
       // 在 小時 前加上AM PM
       Hour = (Hour + 12) < 12 ? 'A.M. ' + (Hour + 12) : 'P.M. ' + Hour
-
       today.innerText = date.getFullYear() + ' / ' + Month + ' / ' + Dates
       time.innerText = Hour + " : " + Minute + " : " + Sec
       week.innerText = weeks[date.getDay()]
