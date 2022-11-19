@@ -18,15 +18,12 @@
       background: #000;
       background-attachment: fixed;
       font-family: 'Black Ops One', 'Noto Sans TC', sans-serif, cursive;
-      /* overflow: hidden; */
     }
 
     #hover {
       width: 120px;
-      height: 100px;
       padding: 5px;
       height: auto;
-      top: 20%;
       left: 50%;
       border: 1px solid #aaa;
       border-radius: 10px;
@@ -51,9 +48,7 @@
 
     #clock {
       width: 80%;
-      height: 60%;
       margin: auto;
-      clear: both;
       text-align: center;
     }
 
@@ -277,7 +272,6 @@
   </div>
 
   <div id="clock">
-    <!-- <label for="Check">CHECK</label> -->
     <div id="hover">hover</div>
 
     <div id="clockHour">
@@ -295,8 +289,6 @@
       <div class="scale"></div>
     </div>
   </div>
-
-  <!-- 配合天氣加動畫 -->
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js'
     integrity='sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=='
@@ -345,9 +337,7 @@
       week.innerText = weeks[date.getDay()]
     }, 1000)
 
-
     /* ---------------------- 溫度 ------------------------- */
-
     axios.get('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-B420A4FB-B72F-466D-92D4-20E6D47260A5')
       .then(({ data }) => {
         for (let i = 0; i < data.records.location.length; i++) {
@@ -375,7 +365,6 @@
             if (Wx.innerText !== '') break
           }
         }
-
         // 選擇的城市
         city.onclick = () => {
           for (i = 0; i < data.records.location.length; i++) {
@@ -385,7 +374,6 @@
           textWeather()
         }
       })
-
   </script>
 </body>
 
