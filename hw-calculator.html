@@ -20,6 +20,7 @@
     /*捲軸寬度 */
     ::-webkit-scrollbar {
       width: 8px;
+      height: 8px;
       margin-right: 2px;
     }
 
@@ -44,7 +45,7 @@
       color: #fff;
       font-family: 'Signika', sans-serif;
       text-align: center;
-      background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/44973e150080465.62f35614b4f7f.jpg') no-repeat center center/100%;
+      background: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/44973e150080465.62f35614b4f7f.jpg') no-repeat center center/cover;
       background-attachment: fixed;
     }
 
@@ -228,18 +229,30 @@
       recordHistory.insertAdjacentHTML('beforeend', `<li>${history[i]} </li>`)
     }
 
-    // 當點擊計算機時
+    // -------------------------------- 點擊時 --------------------------------
     for (const btn of btns) {
       btn.onclick = () => {
         const btnText = btn.innerText
         if (btnText === '=') {
+          // 計算式裡有運算符號才計算
+          if (!(/[÷*\-+]/).test(text.innerText)) return
+
           // 清空紀錄
           record.innerText = ''
           // 再新增最新的
           record.insertAdjacentHTML('beforeend', text.innerText)
-          // eval 執行文字裡的算式
-          text.innerText = eval(text.innerText)
 
+          let num = text.innerText
+          num.includes('÷') ? num = num.replace(/÷/g, '/') : num = text.innerText
+          // eval 執行文字裡的code
+          num = eval(num)
+          // 如果計算結果不是整數
+          if (!Number.isInteger(num)) {
+            // 判斷小數點有幾位，小數點超過五位四捨五入
+            num.toString().split('.')[1].length > 5 ? text.innerText = num.toFixed(5) : text.innerText = num
+          } else {
+            text.innerText = num
+          }
           // 將最新的紀錄新增病存放在 history 陣列中
           history.push(record.innerText + '=' + text.innerText)
           // 將 history 轉為文字存入 本地儲存 localStorage
@@ -255,7 +268,8 @@
           if (text.innerText === '-' && isNaN(parseInt(btnText))) return
 
           if (text.innerText !== '0') {
-            text.innerText += btnText
+            // 換除號符號
+            btnText === '/' ? text.innerText += '÷' : text.innerText += btnText
           } else if (!['+', '*', '/'].includes(btnText)) {
             text.innerText = btnText
           }
@@ -274,18 +288,32 @@
         calculator.style.marginLeft = "0px"
       }
     }
-    // 按鍵時
+
+    // -------------------------------- 按鍵時 --------------------------------
     document.onkeydown = event => {
       const btnText = event.key
+
       if (btnText === 'Delete') {
         text.innerText = '0'
         // 按 Enter 後
       } else if (btnText === 'Enter' || btnText === '=') {
+        // 計算式裡有運算符號才計算
+        if (!(/[÷*\-+]/).test(text.innerText)) return
+
         // 最新紀錄先清空前一筆，再顯示新一筆
         record.innerText = ''
         record.insertAdjacentHTML('beforeend', text.innerText)
+
+        text.innerText.includes('÷') ? num = text.innerText.replace(/÷/g, '/') : num = text.innerText
         // eval 執行文字裡的code
-        text.innerText = eval(text.innerText)
+        num = eval(num)
+        // 如果計算結果不是整數
+        if (!Number.isInteger(num)) {
+          // 判斷小數點有幾位，小數點超過五位四捨五入
+          num.toString().split('.')[1].length > 5 ? text.innerText = num.toFixed(5) : text.innerText = num
+        } else {
+          text.innerText = num
+        }
 
         // 將最新的紀錄新增至 history 陣列中
         history.push(record.innerText + '=' + text.innerText)
@@ -302,9 +330,13 @@
         // 如果按的鍵 不是 符號跟數字的話return
         if (!['+', '*', '/', 'C', '=', '-'].includes(btnText) && !btnText.match(/[0-9.]/g)) return
 
+        // 排除誤按 F1 ~ F12
+        if (event.keyCode > 111 && event.keyCode < 124) return
+
         if (text.innerText !== '0') {
-          text.innerText += btnText
-        } else if (!['+', '*', '/'].includes(btnText)) {
+          // 換除號符號
+          btnText === '/' ? text.innerText += '÷' : text.innerText += btnText
+        } else if (!['+', '*', '/', '-'].includes(btnText)) {
           text.innerText = btnText
         }
       }
